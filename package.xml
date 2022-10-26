@@ -10,16 +10,12 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   
-  <build_depend>roscpp</build_depend>
-  <build_depend>pcl_ros</build_depend>
+  <depend>roscpp</depend>
+  <depend>pcl_ros</depend>
 
-  <build_export_depend>roscpp</build_export_depend>
-  <build_export_depend>pcl_ros</build_export_depend>
-
-  <exec_depend>roscpp</exec_depend>
-  <exec_depend>pcl_ros</exec_depend>
-
-
+  <depend>rostest</depend>
+  <test_depend>rostopic</test_depend>
+  
   <!-- The export tag contains other, unspecified, tags -->
   <export>
     <!-- Other tools can request additional information be placed here -->

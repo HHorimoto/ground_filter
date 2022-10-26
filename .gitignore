@@ -3,5 +3,9 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 
-#Visucal Studio Code
+# Visucal Studio Code
 .vscode
+
+# rosbags
+/bags/*
+!/bags/.gitkeep
