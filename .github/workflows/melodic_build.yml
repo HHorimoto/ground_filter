@@ -1,0 +1,39 @@
+name: ROS melodic build workflow
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    env:
+      CATKIN_WS: /home/runner/work/catkin_ws
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup ROS
+      uses: ros-tooling/setup-ros@v0.2
+      with:
+        required-ros-distributions: melodic
+
+    - name: Install catkin tool
+      run: sudo apt-get install python-catkin-tools
+
+    - name: Init workspace
+      run: |
+        source /opt/ros/melodic/setup.bash
+        mkdir -p ${CATKIN_WS}/src
+        ln -s ${GITHUB_WORKSPACE} ${CATKIN_WS}/src/
+
+    - name: pre build
+      run: |
+        source /opt/ros/melodic/setup.bash
+        cd ${CATKIN_WS}/src/ground_filter
+        git submodule update --init --recursive
+        rosdep update
+        rosdep install -i -y --from-paths ./
+
+    - name: build
+      run: |
+        source /opt/ros/melodic/setup.bash
+        cd ${CATKIN_WS}
+        catkin build
