@@ -20,11 +20,3 @@ include_directories(
 # Ground Filter
 add_executable(${PROJECT_NAME} src/ground_filter.cpp)
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
-
-##########
-## Test ##
-##########
-
-if(CATKIN_ENABLE_TESTING)
-  add_rostest(test/ground_filter_launch.test)
-endif()
