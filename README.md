@@ -1,7 +1,7 @@
 # ground_filter
 
-![melodic workflow](https://github.com/HHorimoto/ground_filter/actions/workflows/melodic_build.yml/badge.svg)
-![noetic workflow](https://github.com/HHorimoto/ground_filter/actions/workflows/noetic_build.yml/badge.svg)
+![melodic workflow](https://github.com/HHorimoto/transform_pointcloud/actions/workflows/melodic.yml/badge.svg)
+![noetic workflow](https://github.com/HHorimoto/transform_pointcloud/actions/workflows/noetic.yml/badge.svg)
 
 **This package filters ground by PointCloud2**
 
