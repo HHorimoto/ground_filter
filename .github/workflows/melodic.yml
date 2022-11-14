@@ -41,4 +41,4 @@ jobs:
     - name: Run test
       run: |
         source ${CATKIN_WS}/devel/setup.bash
-        bash -xv ./test/test.bash
+        bash -xv ./test/test_melodic.bash

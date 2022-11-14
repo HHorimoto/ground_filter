@@ -1,4 +1,4 @@
-name: ROS noetic build test
+name: ROS noetic build and run test
 
 on: push
 
@@ -17,6 +17,9 @@ jobs:
 
     - name: Install catkin tool
       run: sudo apt-get install python3-catkin-tools
+
+    - name: Install rospkg
+      run: sudo pip3 install --target=/opt/ros/noetic/lib/python3/dist-packages rospkg 
 
     - name: Init workspace
       run: |
@@ -37,3 +40,8 @@ jobs:
         source /opt/ros/noetic/setup.bash
         cd ${CATKIN_WS}
         catkin build
+
+    - name: Run test
+      run: |
+        source ${CATKIN_WS}/devel/setup.bash
+        bash -xv ./test/test_noetic.bash

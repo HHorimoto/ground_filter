@@ -12,4 +12,4 @@ roscore &
 sleep 3
 
 ### Run test script ###
-python ./test/test_scripts.py
+python ./test/test_melodic.py
