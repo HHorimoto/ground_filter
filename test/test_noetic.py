@@ -9,25 +9,28 @@ import rospkg
 import sys
 from sensor_msgs.msg import PointCloud2
 
-class SensorMessageGetter(object):
-    def __init__(self, topic, msg_type, msg_wait=1.0):
-        self.msg_wait = msg_wait
+class MessageGetter(object):
+    def __init__(self, topic, topic_type, timeout=1.0):
         self.topic = topic
-        self.msg_type = msg_type
-
-    def get_msg(self):
-        message = None
+        self.topic_type = topic_type
+        self.timeout = timeout
+    
+    def get_message(self):
+        result = None
         try:
-            message = rospy.wait_for_message(
-                self.topic, self.msg_type, self.msg_wait)
-        except rospy.exceptions.ROSException as e:
-            rospy.logdebug(e)
-        return message
+            result = rospy.wait_for_message(self.topic, self.topic_type, self.timeout)
+        except rospy.exceptions.ROSException as err:
+            rospy.logerr("%s is not found", self.topic)
+            rospy.logerr(err)
+        else:
+            rospy.loginfo("got %s correctly", self.topic)
+        finally:
+            return result
 
 class Listener(object):
     def __init__(self, time_lilmit=10, topic_lanes='/points_lanes', topic_ground='/points_ground', msg_wait=1.0):
-        self.topic_lanes_msg = SensorMessageGetter(topic_lanes, PointCloud2, msg_wait)
-        self.topic_ground_msg = SensorMessageGetter(topic_ground, PointCloud2, msg_wait)
+        self.topic_lanes_msg = MessageGetter(topic_lanes, PointCloud2, msg_wait)
+        self.topic_ground_msg = MessageGetter(topic_ground, PointCloud2, msg_wait)
         self.time_lilmit = time_lilmit
         self.end_time = None
 
@@ -41,8 +44,8 @@ class Listener(object):
         if self.time_lilmit is not None:
             self.end_time = rospy.Time.now() + rospy.Duration.from_sec(self.time_lilmit)
         while self.is_time_lilmit() is False:
-            msg_lanes = self.topic_lanes_msg.get_msg()
-            msg_ground = self.topic_ground_msg.get_msg()
+            msg_lanes = self.topic_lanes_msg.get_message()
+            msg_ground = self.topic_ground_msg.get_message()
             if msg_lanes is not None and msg_ground is not None:
                 return True
         return False
