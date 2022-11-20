@@ -12,9 +12,6 @@
   
   <depend>roscpp</depend>
   <depend>pcl_ros</depend>
-
-  <depend>rostest</depend>
-  <test_depend>rostopic</test_depend>
   
   <!-- The export tag contains other, unspecified, tags -->
   <export>

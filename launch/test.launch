@@ -6,7 +6,7 @@
 	<arg name="angle_threshold" default="0.35" />
 	
 	<!-- rosrun lidar_tracker ground_filter -->
-	<node pkg="ground_filter" type="ground_filter" name="ground_filter">
+	<node pkg="ground_filter" type="ground_filter_node" name="ground_filter_node">
 		<param name="subscribe_topic" value="$(arg subscribe_topic)" />
 		<param name="remove_ground" value="$(arg remove_ground)" />
 		<param name="points_distance" value="$(arg points_distance)" />
@@ -16,5 +16,4 @@
     <arg name="bag" default="rosbag" />
     <arg name="bag_path" default="$(find ground_filter)/$(arg bag).bag" />
     <node name="playbag" pkg="rosbag" type="play" args="--clock $(arg bag_path)" required="false" />
-
 </launch>
