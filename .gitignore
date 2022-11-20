@@ -6,6 +6,5 @@
 # Visucal Studio Code
 .vscode
 
-# rosbags
-/bags/*
-!/bags/.gitkeep
+# rosbag
+*.bag
