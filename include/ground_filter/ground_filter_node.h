@@ -12,7 +12,9 @@
 #include <ros/ros.h>
 #include <pcl_ros/point_cloud.h>
 #include <pcl/filters/extract_indices.h>
+#include <pcl/filters/filter.h>
 #include <pcl/segmentation/sac_segmentation.h>
+#include <pcl/filters/voxel_grid.h>
 
 typedef pcl::PointXYZ PointT;
 typedef pcl::PointCloud<PointT> PointCloud;
@@ -20,7 +22,8 @@ typedef pcl::PointIndices PointIndices;
 typedef pcl::ModelCoefficients ModelCoefficients;
 typedef pcl::SACSegmentation<PointT> SACSegmentation;
 typedef pcl::ExtractIndices<PointT> ExtractIndices;
-
+typedef pcl::VoxelGrid<PointT> VoxelGrid;
+typedef pcl::PCLHeader Header;
 
 namespace ground_filter
 {
@@ -40,8 +43,12 @@ namespace ground_filter
 
         bool floor_removal_;
 
-        double points_distance_;
-        double angle_threshold_;
+        float points_distance_;
+        float angle_threshold_;
+
+        float voxel_size_x_;
+        float voxel_size_y_;
+        float voxel_size_z_;
 
         SACSegmentation seg;
         PointIndices::Ptr inliers;
@@ -49,13 +56,21 @@ namespace ground_filter
 
         PointCloud::Ptr ground_cloud_ptr;
         PointCloud::Ptr lanes_cloud_ptr;
+        PointCloud::Ptr nonan_ptr;
+        PointCloud::Ptr processed_ptr;
 
         void VelodyneCallback(const PointCloud::ConstPtr &in_sensor_cloud_ptr);
         void RemoveFloor(const PointCloud::ConstPtr &in_cloud_ptr,
-                        PointCloud::Ptr &out_nofloor_cloud_ptr,
-                        PointCloud::Ptr &out_onlyfloor_cloud_ptr,
-                        float in_max_height,
-                        float in_floor_max_angle);    
+                         PointCloud::Ptr &out_nofloor_cloud_ptr,
+                         PointCloud::Ptr &out_onlyfloor_cloud_ptr,
+                         float in_max_height,
+                         float in_floor_max_angle);
+        void Preprocessing(const PointCloud::ConstPtr &in_cloud_ptr, 
+                            PointCloud::Ptr &removed_nan_ptr, 
+                            PointCloud::Ptr &out_cloud_ptr, 
+                            float size_x, 
+                            float size_y, 
+                            float size_z);
     };
 }
 
