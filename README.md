@@ -3,11 +3,30 @@
 ![melodic workflow](https://github.com/HHorimoto/ground_filter/actions/workflows/melodic.yml/badge.svg)
 ![noetic workflow](https://github.com/HHorimoto/ground_filter/actions/workflows/noetic.yml/badge.svg)
 
-**This package filters ground by PointCloud2**
+**This node removes the ground points from the input pointcloud by RANSAC Algorithm**
+
+The demo video can be found here -> https://youtu.be/eCVASqiWuVc
 
 ## Requirement
-+ ROS Melodic (on Ubuntu 18.04 LTS, build and run test on Github Actions)
-+ ROS Noetic (on Ubuntu 20.04 LTS, build and run test on Github Actions)
++ ROS Melodic (on Ubuntu 18.04 LTS, build and run test on [Github Actions](./.github/workflows/melodic.yml))
++ ROS Noetic (on Ubuntu 20.04 LTS, build and run test on [Github Actions](./.github/workflows/noetic.yml))
+
+## Set Up
+Download `ground_filter` package.
+
+```shell
+$ cd ~/catkin_ws/src/
+$ git clone https://github.com/HHorimoto/ground_filter.git
+$ cd ~/catkin_ws && catkin_make
+```
+
+## How to Use
+Launch `ground_filter.launch`
+
+```shell
+$ roslaunch ground_filter ground_filter.launch
+```
+
 
 ## Test
 This package provides test bash for use with `Github Actions`.
